@@ -1,4 +1,4 @@
-# Obsidian Sample Plugin
+# Typoradify
 
 This is a sample plugin for Obsidian (https://obsidian.md).
 
