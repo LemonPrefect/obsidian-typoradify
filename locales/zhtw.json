@@ -1,0 +1,72 @@
+{
+  "title": "設定 `Typoradify'",
+  "description": "`Typoradify' 的服務由兩個不同的元件提供，其二者間的設定獨立。",
+  "file": {
+    "saved": "檔案已儲存"
+  },  
+  "notice":{
+    "html": "正在匯出 {{filename}} 為 HTML。",
+    "rawhtml": "正在匯出 {{filename}} 為無樣式 HTML。",
+    "pdf": "正在匯出 {{filename}} 為 PDF。"
+  },
+  "command": {
+    "html": "渲染為 HTML",
+    "rawhtml": "渲染為無樣式 HTML",
+    "pdf": "渲染為 PDF"
+  },
+  "setting": {
+    "parser": {
+      "title": "設定 Typora-parser 元件",
+      "autoNumbering": {
+        "name": "數學公式編號",
+        "description": "啟用時，數學公式編號將被渲染。"
+      },
+      "applyLineBreaks": {
+        "name": "公式可換行",
+        "description": "啟用時，數學公式中間可以自動換行。"
+      },
+      "displayLineNumbers": {
+        "name": "程式碼塊行號",
+        "description": "啟用時，程式碼行號將被渲染。"
+      },
+      "theme": {
+        "name": "Typora 主題 CSS 檔案",
+        "description": "Typora 主題 CSS 的完整絕對路徑。",
+        "placeholder": "示例：~/theme.css"
+      },
+      "customCss": {
+        "name": "自定義 CSS",
+        "description": "自定義 CSS。",
+        "placeholder": "示例：.test{color: blue}"
+      }
+    }, 
+    "printer": {
+      "title": "設定 Electron 印表機元件",
+      "landscape": {
+        "name": "紙張方向",
+        "description": "匯出為 PDF 時紙張的方向。",
+        "option": {
+          "portrait": "豎向",
+          "landscape": "橫向"
+        }
+      },
+      "marginsType": {
+        "name": "紙張頁邊距",
+        "description": "匯出為 PDF 時紙張的頁邊距。",
+        "option": {
+          "min": "窄",
+          "max": "寬",
+          "default": "預設"
+        }
+      },
+      "pageSize": {
+        "name": "紙張大小",
+        "description": "匯出為 PDF 時紙張的大小。"
+      },
+      "printBackground": {
+        "name": "列印背景",
+        "description": "匯出為 PDF 時是否列印背景。"
+      }
+    }
+  }
+}

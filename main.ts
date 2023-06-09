@@ -1,6 +1,7 @@
 import { App, FileSystemAdapter, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
 import path from 'path';
-import Renderer from 'render';
+import Renderer from 'common/lib/render';
+import i18n from "./common/lib/lang";
 
 interface TyporadifySettings {
   customCss: string;
@@ -26,6 +27,8 @@ const DEFAULT_SETTINGS: TyporadifySettings = {
   printBackground: false
 }
 
+const t = i18n();
+
 export default class Typoradify extends Plugin {
   settings: TyporadifySettings;
 
@@ -38,27 +41,27 @@ export default class Typoradify extends Plugin {
   async registerCommands() {
     this.addCommand({
       id: 'render-html',
-      name: 'Render HTML',
+      name: t("command.html"),
       callback: async () => {
-        new Notice(`Exporting ${path.basename(await this.getCurrentFile() as string)} to HTML`);
+        new Notice(t("notice.html", { filename: path.basename(await this.getCurrentFile() as string) }) as string);
         await Renderer.renderHTML(global, await this.getCurrentFile() as string);
       }
     });
 
     this.addCommand({
       id: 'render-raw-html',
-      name: 'Render HTML (without styles)',
+      name: t("command.rawhtml"),
       callback: async () => {
-        new Notice(`Exporting ${path.basename(await this.getCurrentFile() as string)} to HTML (without styles)`);
+        new Notice(t("notice.rawhtml", { filename: path.basename(await this.getCurrentFile() as string) }) as string);
         await Renderer.renderRawHTML(global, await this.getCurrentFile() as string);
       }
     });
 
     this.addCommand({
       id: 'render-pdf',
-      name: 'Render PDF',
+      name: t("command.pdf"),
       callback: async () => {
-        new Notice(`Exporting ${path.basename(await this.getCurrentFile() as string)} to PDF`);
+        new Notice(t("notice.pdf", { filename: path.basename(await this.getCurrentFile() as string) }) as string);
         await Renderer.renderPDF(global, await this.getCurrentFile() as string);
       }
     });
@@ -100,20 +103,20 @@ class TyporadifySettingTab extends PluginSettingTab {
 
     containerEl.empty();
     containerEl.createEl('div', {
-      text: "Settings for `Typoradify'", attr: {
+      text: t("title") as string, attr: {
         class: "setting-item-name"
       }
     });
     containerEl.createEl('div', {
-      text: "Settings for `Typoradify' is seperated to two parts as they are supplied by different components.", attr: {
+      text: t("description") as string, attr: {
         class: "setting-item-description"
       }
     });
-    containerEl.createEl('h2', { text: "Settings for Typora-parser" });
+    containerEl.createEl('h2', { text: t("setting.parser.title") as string });
 
     new Setting(containerEl)
-      .setName('Auto numbering the math equations')
-      .setDesc('When toggled on, math equation will be automatically.')
+      .setName(t("setting.parser.autoNumbering.name") as string)
+      .setDesc(t("setting.parser.autoNumbering.description") as string)
       .addToggle(toggle => toggle
         .setValue(this.plugin.settings.autoNumbering)
         .onChange(async (value) => {
@@ -123,8 +126,8 @@ class TyporadifySettingTab extends PluginSettingTab {
         }));
 
     new Setting(containerEl)
-      .setName('Line breaks in math equation')
-      .setDesc('When toggled on, line breaks may happend in the math equation.')
+      .setName(t("setting.parser.applyLineBreaks.name") as string)
+      .setDesc(t("setting.parser.applyLineBreaks.description") as string)
       .addToggle(toggle => toggle
         .setValue(this.plugin.settings.applyLineBreaks)
         .onChange(async (value) => {
@@ -134,8 +137,8 @@ class TyporadifySettingTab extends PluginSettingTab {
         }));
 
     new Setting(containerEl)
-      .setName('Display line numbers in fenced codeblocks')
-      .setDesc('When toggled on, line numbers will appear in each line of codes.')
+      .setName(t("setting.parser.displayLineNumbers.name") as string)
+      .setDesc(t("setting.parser.displayLineNumbers.description") as string)
       .addToggle(toggle => toggle
         .setValue(this.plugin.settings.displayLineNumbers)
         .onChange(async (value: boolean) => {
@@ -145,10 +148,10 @@ class TyporadifySettingTab extends PluginSettingTab {
         }));
 
     new Setting(containerEl)
-      .setName('Typora Theme CSS')
-      .setDesc('The full path of a Typora Theme CSS file to render the file with.')
+      .setName(t("setting.parser.theme.name") as string)
+      .setDesc(t("setting.parser.theme.description") as string)
       .addText(text => text
-        .setPlaceholder('Sample: ~/theme.css')
+        .setPlaceholder(t("setting.parser.theme.placeholder") as string)
         .setValue(this.plugin.settings.theme)
         .onChange(async (value: string) => {
           console.log(`[CONFIG] Change theme file to ${value}`);
@@ -157,10 +160,10 @@ class TyporadifySettingTab extends PluginSettingTab {
         }));
 
     new Setting(containerEl)
-      .setName('Custom CSS')
-      .setDesc('Custom CSS overwrites the CSS given above.')
+      .setName(t("setting.parser.customCss.name") as string)
+      .setDesc(t("setting.parser.customCss.description") as string)
       .addTextArea(textarea => textarea
-        .setPlaceholder('Sample: .test{color: blue}')
+        .setPlaceholder(t("setting.parser.customCss.placeholder") as string)
         .setValue(this.plugin.settings.customCss)
         .onChange(async (value: string) => {
           console.log(`[CONFIG] Change customCss to ${value}`);
@@ -168,32 +171,25 @@ class TyporadifySettingTab extends PluginSettingTab {
           await this.plugin.saveSettings();
         }));
 
-
-    // landscape: false,
-    // marginsType: 0,
-    // printBackground: false,
-    // printSelectionOnly: false,
-    // pageSize: "A4",
-
-
-    containerEl.createEl('h2', { text: "Settings for Electron printer" });
+    containerEl.createEl('h2', { text: t("setting.printer.title") as string });
 
     new Setting(containerEl)
-      .setName('Paper direction')
-      .setDesc('The paper direction when printing as PDF.')
+      .setName(t("setting.printer.landscape.name") as string)
+      .setDesc(t("setting.printer.landscape.description") as string)
       .addDropdown(dropdown => dropdown
-        .addOptions({ "false": "portrait", "true": "landscape" })
+        .addOptions({ "false": t("setting.printer.landscape.option.portrait") as string, "true": t("setting.printer.landscape.option.landscape") as string })
         .setValue((this.plugin.settings.landscape ? "true" : "false"))
         .onChange(async (value) => {
           console.log(`[CONFIG] Change landscape to ${value}`);
           this.plugin.settings.landscape = (value === "true");
           await this.plugin.saveSettings();
         }));
+
     new Setting(containerEl)
-      .setName('Margins Type')
-      .setDesc('Paper margins type when printing as PDF.')
+      .setName(t("setting.printer.marginsType.name") as string)
+      .setDesc(t("setting.printer.marginsType.description") as string)
       .addDropdown(dropdown => dropdown
-        .addOptions({ 0: "default", 1: "min", 2: "max" })
+        .addOptions({ 0: t("setting.printer.marginsType.option.default") as string, 1: t("setting.printer.marginsType.option.min") as string, 2: t("setting.printer.marginsType.option.max") as string })
         .setValue(this.plugin.settings.marginsType.toString())
         .onChange(async (value) => {
           console.log(`[CONFIG] Change marginsType to ${value}`);
@@ -202,8 +198,8 @@ class TyporadifySettingTab extends PluginSettingTab {
         }));
 
     new Setting(containerEl)
-      .setName('Page Size')
-      .setDesc('Page size when printing as PDF.')
+      .setName(t("setting.printer.pageSize.name") as string)
+      .setDesc(t("setting.printer.pageSize.description") as string)
       .addDropdown(dropdown => dropdown
         .addOptions({ A3: "A3", A4: "A4", A5: "A5", Legal: "Legal", Letter: "Letter", Tabloid: "Tabloid" })
         .setValue(this.plugin.settings.pageSize)
@@ -214,9 +210,9 @@ class TyporadifySettingTab extends PluginSettingTab {
         }));
 
     new Setting(containerEl)
-      .setName('Print Background')
-      .setDesc('When toggled on, background will appear when printing as PDF.')
-      .addToggle(textarea => textarea
+      .setName(t("setting.printer.printBackground.name") as string)
+      .setDesc(t("setting.printer.printBackground.description") as string)
+      .addToggle(toggle => toggle
         .setValue(this.plugin.settings.printBackground)
         .onChange(async (value) => {
           console.log(`[CONFIG] Change printBackground to ${value}`);
@@ -229,12 +225,5 @@ class TyporadifySettingTab extends PluginSettingTab {
         class: "setting-item-description"
       }
     });
-
-
-
   }
-
-
-
-
 }

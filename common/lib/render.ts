@@ -4,6 +4,9 @@ import TyporaParser, { RenderOptions } from 'typora-parser';
 import * as fs from "fs";
 import path from 'path';
 import { Notice } from 'obsidian';
+import i18n from "../../common/lib/lang";
+
+const t = i18n();
 
 export default class Renderer {
   private static async saveFile(context: any, title: string, data: any, filters: Array<{ name: string, extensions: Array<string> }>, defaultPath?: string) {
@@ -12,7 +15,7 @@ export default class Renderer {
     if (pathObj.canceled) return;
     fs.writeFile(pathObj.filePath, data, error => {
       if (error) return new Notice(error.message);
-      return new Notice("File saved");
+      return new Notice(t("file.saved") as string);
     });
   }
 
@@ -30,7 +33,7 @@ export default class Renderer {
   public static async renderHTML(context: any, filepath: string) {
     const settings = context.app.plugins.plugins["obsidian-typoradify"].settings;
     const html = await this._renderHTML(filepath, {
-      extraHeadTags: `<style>${fs.readFileSync(path.resolve(`${context.app.vault.adapter.getBasePath()}/${context.app.vault.configDir}/plugins/obsidian-typoradify/default.css`), { encoding: 'utf8' })}\n${settings.theme ? fs.readFileSync(settings.theme, { encoding: 'utf8' }) : ""}\n${settings.customCss}</style>`,
+      extraHeadTags: `<style>${fs.readFileSync(path.resolve(`${context.app.vault.adapter.getBasePath()}/${context.app.vault.configDir}/plugins/obsidian-typoradify/common/style/default.css`), { encoding: 'utf8' })}\n${settings.theme ? fs.readFileSync(settings.theme, { encoding: 'utf8' }) : ""}\n${settings.customCss}</style>`,
       includeHead: true,
       vanillaHTML: false,
       codeRenderer: new HighlightJsRenderer({
@@ -66,7 +69,7 @@ export default class Renderer {
     const BrowserWindow = context.electron.remote.BrowserWindow;
     const settings = context.app.plugins.plugins["obsidian-typoradify"].settings;
     const html = await this._renderHTML(filepath, {
-      extraHeadTags: `<style>${fs.readFileSync(path.resolve(`${context.app.vault.adapter.getBasePath()}/${context.app.vault.configDir}/plugins/obsidian-typoradify/default.css`), { encoding: 'utf8' })}\n${settings.theme ? fs.readFileSync(settings.theme, { encoding: 'utf8' }) : ""}\n${settings.customCss}</style>`,
+      extraHeadTags: `<style>${fs.readFileSync(path.resolve(`${context.app.vault.adapter.getBasePath()}/${context.app.vault.configDir}/plugins/obsidian-typoradify/common/style/default.css`), { encoding: 'utf8' })}\n${settings.theme ? fs.readFileSync(settings.theme, { encoding: 'utf8' }) : ""}\n${settings.customCss}</style>`,
       includeHead: true,
       vanillaHTML: false,
       codeRenderer: new HighlightJsRenderer({

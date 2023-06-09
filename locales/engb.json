@@ -1,0 +1,72 @@
+{
+  "title": "Settings for `Typoradify'",
+  "description": "Settings for `Typoradify' is seperated to two parts as they are supplied by different components.",
+  "file": {
+    "saved": "File saved"
+  },
+  "notice":{
+    "html": "Exporting {{filename}} to HTML.",
+    "rawhtml": "Exporting {{filename}} to HTML (without styles).",
+    "pdf": "Exporting {{filename}} to PDF."
+  },
+  "command": {
+    "html": "Render HTML",
+    "rawhtml": "Render HTML (without styles)",
+    "pdf": "Render PDF"
+  },
+  "setting": {
+    "parser": {
+      "title": "Settings for Typora-parser",
+      "autoNumbering": {
+        "name": "Auto numbering the math equations",
+        "description": "When toggled on, math equation will be automatically."
+      },
+      "applyLineBreaks": {
+        "name": "Line breaks in math equation",
+        "description": "When toggled on, line breaks may happend in the math equation."
+      },
+      "displayLineNumbers": {
+        "name": "Display line numbers in fenced codeblocks",
+        "description": "When toggled on, line numbers will appear in each line of codes."
+      },
+      "theme": {
+        "name": "Typora Theme CSS",
+        "description": "The full path of a Typora Theme CSS file to render the file with.",
+        "placeholder": "Sample: ~/theme.css"
+      },
+      "customCss": {
+        "name": "Custom CSS",
+        "description": "Custom CSS overwrites the CSS given above.",
+        "placeholder": "Sample: .test{color: blue}"
+      }
+    }, 
+    "printer": {
+      "title": "Settings for Electron printer",
+      "landscape": {
+        "name": "Paper direction",
+        "description": "The paper direction when printing as PDF.",
+        "option": {
+          "portrait": "portrait",
+          "landscape": "landscape"
+        }
+      },
+      "marginsType": {
+        "name": "Margins Type",
+        "description": "Paper margins type when printing as PDF.",
+        "option": {
+          "min": "min",
+          "max": "max",
+          "default": "default"
+        }
+      },
+      "pageSize": {
+        "name": "Page Size",
+        "description": "Page size when printing as PDF."
+      },
+      "printBackground": {
+        "name": "Print Background",
+        "description": "When toggled on, background will appear when printing as PDF."
+      }
+    }
+  }
+}

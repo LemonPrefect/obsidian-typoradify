@@ -1,0 +1,72 @@
+{
+    "title": "设置 `Typoradify'",
+    "description": "`Typoradify' 的服务由两个不同的组件提供，其二者间的设置独立。",
+    "file": {
+      "saved": "文件已保存"
+    },  
+    "notice":{
+      "html": "正在导出 {{filename}} 为 HTML。",
+      "rawhtml": "正在导出 {{filename}} 为无样式 HTML。",
+      "pdf": "正在导出 {{filename}} 为 PDF。"
+    },
+    "command": {
+      "html": "渲染为 HTML",
+      "rawhtml": "渲染为无样式 HTML",
+      "pdf": "渲染为 PDF"
+    },
+    "setting": {
+      "parser": {
+        "title": "设置 Typora-parser 组件",
+        "autoNumbering": {
+          "name": "数学公式编号",
+          "description": "启用时，数学公式编号将被渲染。"
+        },
+        "applyLineBreaks": {
+          "name": "公式可换行",
+          "description": "启用时，数学公式中间可以自动换行。"
+        },
+        "displayLineNumbers": {
+          "name": "代码块行号",
+          "description": "启用时，代码行号将被渲染。"
+        },
+        "theme": {
+          "name": "Typora 主题 CSS 文件",
+          "description": "Typora 主题 CSS 的完整绝对路径。",
+          "placeholder": "示例：~/theme.css"
+        },
+        "customCss": {
+          "name": "自定义 CSS",
+          "description": "自定义 CSS。",
+          "placeholder": "示例：.test{color: blue}"
+        }
+      }, 
+      "printer": {
+        "title": "设置 Electron 打印机组件",
+        "landscape": {
+          "name": "纸张方向",
+          "description": "导出为 PDF 时纸张的方向。",
+          "option": {
+            "portrait": "竖向",
+            "landscape": "横向"
+          }
+        },
+        "marginsType": {
+          "name": "纸张页边距",
+          "description": "导出为 PDF 时纸张的页边距。",
+          "option": {
+            "min": "窄",
+            "max": "宽",
+            "default": "默认"
+          }
+        },
+        "pageSize": {
+          "name": "纸张大小",
+          "description": "导出为 PDF 时纸张的大小。"
+        },
+        "printBackground": {
+          "name": "打印背景",
+          "description": "导出为 PDF 时是否打印背景。"
+        }
+      }
+    }
+  }
